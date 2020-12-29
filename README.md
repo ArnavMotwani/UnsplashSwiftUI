@@ -1,6 +1,6 @@
 # UnsplashSwiftUI
 
-This SwiftUI makes using the Unsplash API simple and easy. 
+This SwiftUI package makes using the Unsplash API in an app simple and easy. 
 
 Call the view and apply modifiers to it like you would with anyother view. The package will fetch the image metadata from the API and it will load the remote image, temporarily caching the image as well. The view also has a text in the botom left corner crediting the photographer as well as hotlinking to the image on Unsplash (A requirement while using the API). Finally, the view will automatically scale the image to the container.
 

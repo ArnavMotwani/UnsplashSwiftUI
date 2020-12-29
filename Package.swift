@@ -21,8 +21,5 @@ let package = Package(
         .target(
             name: "UnsplashSwiftUI",
             dependencies: []),
-        .testTarget(
-            name: "UnsplashSwiftUITests",
-            dependencies: ["UnsplashSwiftUI"]),
     ]
 )

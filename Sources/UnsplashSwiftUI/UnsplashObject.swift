@@ -60,7 +60,7 @@ class UnsplashAPI: ObservableObject {
                 do {
                     let response = try decoder.decode(UnsplashData.self, from: data)
                     DispatchQueue.main.async {
-                        self.state = .loaded(response) // error here - should not be triggered anymore
+                        self.state = .loaded(response)
                     }
                 } catch {
                     print(error)

@@ -7,7 +7,7 @@ Call the view and apply modifiers to it like you would with anyother view. The p
 ## Requirements:
 The package is only compatible with iOS 14 and iPadOS 14 for now.
 
-The package requires a Client ID for the Unsplash API. You can get one from the [Unsplash Developers](https://unsplash.com/developers) page. You'll need to register your app there and you will be Rate Limited (limited number of API requests per hour) until you apply for a high-volume application (refer to the [Unsplash Developers](https://unsplash.com/developers) page for more details)
+The package requires a Access Key (Client ID) for the Unsplash API. You can get one from the [Unsplash Developers](https://unsplash.com/developers) page. You'll need to register your app there and you will be Rate Limited (limited number of API requests per hour) until you apply for a high-volume application (refer to the [Unsplash Developers](https://unsplash.com/developers) page for more details)
 
 Disclamer: I have not attempted applying for a high-volume application using this library as of yet. I believe that I have met all the requirements of the API and you should have no problem with it however I am not completely sure.
 
@@ -73,11 +73,13 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
 ```
 ## Customizations:
 
-| Parameter   | Optional? | Type   | Description                                                                 |
-|-------------|-----------|--------|-----------------------------------------------------------------------------|
-| clientId    | No        | String | Client ID from the Unsplash Developer page                                  |
-| orientation | Yes       | String | Filter by photo orientation. (Valid values:  landscape, portrait, squarish) |
-| query       | Yes       | String | Limit selection to photos matching a search term.                           |
+| Parameter           | Optional? | Type   | Description                                                                 | Default     |
+|---------------------|-----------|--------|-----------------------------------------------------------------------------|-------------|
+| clientId            | No        | String | Client ID from the Unsplash Developer page                                  | -           |
+| orientation         | Yes       | String | Filter by photo orientation. (Valid values:  landscape, portrait, squarish) | -           |
+| query               | Yes       | String | Limit selection to photos matching a search term.                           | -           |
+| textColor           | Yes       | Color  | Color of the text hotlinked to image on Unsplash                            | Color.white |
+| textBackgroundColor | Yes       | Color  | Color of text background (opacity set to 0.2 automatically)                 | Color.black |
 
 ### Examples: 
 
@@ -98,4 +100,24 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", query: "landscapes")
     
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", query: "space")
+```
+
+### textColor
+
+```swift
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textColor: .black)
+    
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textColor: .blue)
+    
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textColor: .primary)
+```
+
+### textBackgroundColor
+
+```swift
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textBackgroundColor: .white)
+    
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textBackgroundColor: .blue)
+    
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textBackgroundColor: .primary)
 ```

@@ -73,23 +73,23 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
 ```
 ## Customizations:
 
-| Parameter           | Optional? | Type         | Description                                                                            | Default     |
-|---------------------|-----------|--------------|----------------------------------------------------------------------------------------|-------------|
-| clientId            | No        | String       | Client ID from the Unsplash Developer page                                             | -           |
-| orientation         | Yes       | Orientations | Filter by photo orientation. (Valid values:   .landscape, .portrait, .squarish, .none) | -           |
-| query               | Yes       | String       | Limit selection to photos matching a search term.                                      | -           |
-| textColor           | Yes       | Color        | Color of the text hotlinked to image on Unsplash                                       | Color.white |
-| textBackgroundColor | Yes       | Color        | Color of text background (opacity set to 0.2 automatically)                            | Color.black |
+| Parameter           | Optional? | Type   | Description                                                                 | Default     |
+|---------------------|-----------|--------|-----------------------------------------------------------------------------|-------------|
+| clientId            | No        | String | Client ID from the Unsplash Developer page                                  | -           |
+| orientation         | Yes       | String | Filter by photo orientation. (Valid values:  landscape, portrait, squarish) | -           |
+| query               | Yes       | String | Limit selection to photos matching a search term.                           | -           |
+| textColor           | Yes       | Color  | Color of the text hotlinked to image on Unsplash                            | Color.white |
+| textBackgroundColor | Yes       | Color  | Color of text background (opacity set to 0.2 automatically)                 | Color.black |
 
 ### Examples: 
 
 #### orientation
 ```swift
-    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", orientation: .landscape)
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", orientation: "landscape")
     
-    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", orientation: .portrait)
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", orientation: "portrait")
     
-    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", orientation: .squarish)
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", orientation: "squarish")
 ```
 
 #### query

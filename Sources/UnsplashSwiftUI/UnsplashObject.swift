@@ -14,15 +14,22 @@ class UnsplashAPI: ObservableObject {
         case loaded(UnsplashData)
     }
     
+    enum Orientations {
+        case landscape
+        case portrait
+        case squarish
+        case none
+    }
+    
     @Published var state = State.loading
 
     let url = URL(string: "https://api.unsplash.com/")!
     
     var clientId: String
     var query: String
-    var orientation: String
+    var orientation: Orientations
     
-    init(clientId: String, query: String = "", orientation: String = "") {
+    init(clientId: String, query: String = "", orientation: Orientations = .none) {
         self.clientId = clientId
         self.query = query
         self.orientation = orientation
@@ -43,8 +50,19 @@ class UnsplashAPI: ObservableObject {
             components.queryItems?.append(URLQueryItem(name: "query", value: query))
         }
         
-        if orientation != "" {
-            components.queryItems?.append(URLQueryItem(name: "orientation", value: orientation))
+        var orientationValue = ""
+        if orientation != .none {
+            switch orientation {
+            case .landscape:
+                orientationValue = "landscape"
+            case .portrait:
+                orientationValue = "portrait"
+            case .squarish:
+                orientationValue = "squarish"
+            case .none:
+                orientationValue = ""
+            }
+            components.queryItems?.append(URLQueryItem(name: "orientation", value: orientationValue))
         }
 
         let request = URLRequest(url: components.url!)

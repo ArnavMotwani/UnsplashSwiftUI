@@ -1,22 +1,28 @@
 import SwiftUI
-
-//MARK: UnsplashRandom
 public struct UnsplashRandom: View {
     
     //MARK: Parameters
     //Required parameters
     var clientId: String //Unsplash API access key
     
+    public enum Orientations {
+        case landscape
+        case portrait
+        case squarish
+        case none
+    }
+    
     //Optional parameters
     var query: String // Limit selection to photos matching a search term.
-    var orientation: String // Filter by photo orientation. (Valid values:  landscape, portrait, squarish)
+    var orientation: Orientations // Filter by photo orientation. (Valid values:  landscape, portrait, squarish)
     var textColor: Color // Color of the text hotlinked to image on Unsplash
     var textBackgroundColor: Color // Color of text background (opacity set to 0.2 automatically)
     
     //Unsplash API data
     @ObservedObject var api : UnsplashAPI
     
-    public init(clientId: String, query: String = "", orientation: String = "", textColor: Color = .white, textBackgroundColor: Color = .black){
+    //MARK: Init
+    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black){
         self.clientId = clientId
         self.query = query
         self.orientation = orientation

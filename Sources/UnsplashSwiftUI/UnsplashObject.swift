@@ -16,36 +16,13 @@ class UnsplashAPI: ObservableObject {
     
     @Published var state = State.loading
 
-    let url = URL(string: "https://api.unsplash.com/")!
+    var components: URLComponents
     
-    var clientId: String
-    var query: String
-    var orientation: String
-    
-    init(clientId: String, query: String = "", orientation: String = "") {
-        self.clientId = clientId
-        self.query = query
-        self.orientation = orientation
+    init(components: URLComponents) {
+        self.components = components
     }
     
     func request() {
-        guard var components = URLComponents(url: url.appendingPathComponent("photos/random"),
-                                             resolvingAgainstBaseURL: true)
-        else {
-            fatalError("Couldn't append path component")
-        }
-
-        components.queryItems = [
-            URLQueryItem(name: "client_id", value: clientId)
-        ]
-        
-        if query != "" {
-            components.queryItems?.append(URLQueryItem(name: "query", value: query))
-        }
-        
-        if orientation != "" {
-            components.queryItems?.append(URLQueryItem(name: "orientation", value: orientation))
-        }
 
         let request = URLRequest(url: components.url!)
 

@@ -35,23 +35,12 @@ public struct UnsplashRandom: View {
         
         let url = URL(string: "https://api.unsplash.com/")!
         
-        guard var components = URLComponents(url: url.appendingPathComponent("photos/random"),
-                                             resolvingAgainstBaseURL: true)
-        else {
-            fatalError("Couldn't append path component")
-        }
+        guard var components = URLComponents(url: url.appendingPathComponent("photos/random"), resolvingAgainstBaseURL: true)
+        else { fatalError("Couldn't append path component")}
 
-        components.queryItems = [
-            URLQueryItem(name: "client_id", value: clientId)
-        ]
-        
-        if query != "" {
-            components.queryItems?.append(URLQueryItem(name: "query", value: query))
-        }
-        
-        if orientation != .none {
-            components.queryItems?.append(URLQueryItem(name: "orientation", value: orientation.rawValue))
-        }
+        components.queryItems = [URLQueryItem(name: "client_id", value: clientId)]
+        if query != "" {components.queryItems?.append(URLQueryItem(name: "query", value: query))}
+        if orientation != .none {components.queryItems?.append(URLQueryItem(name: "orientation", value: orientation.rawValue))}
         
         self.api = UnsplashAPI(components: components)
     }

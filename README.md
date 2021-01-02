@@ -17,6 +17,8 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
 ## Usage:
 Import the package into the file with  `import UnsplashSwiftUI` then call the `UnsplashRandom` view wherever you want.
 
+Note: The package doesn't currently support calling the view more than once in a file. While the code will build and run correctly, the link at the bottom of the image will not match the image. 
+
 ### Examples:
 
 ```swift

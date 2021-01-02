@@ -5,9 +5,16 @@ public struct UnsplashRandom: View {
     //Required parameters
     var clientId: String //Unsplash API access key
     
+    public enum Orientations: String{
+        case landscape = "landscape"
+        case portrait = "portrait"
+        case squarish = "squarish"
+        case none = ""
+    }
+    
     //Optional parameters
     var query: String // Limit selection to photos matching a search term.
-    var orientation: String // Filter by photo orientation. (Valid values:  landscape, portrait, squarish)
+    var orientation: Orientations // Filter by photo orientation. (Valid values:  landscape, portrait, squarish)
     var textColor: Color // Color of the text hotlinked to image on Unsplash
     var textBackgroundColor: Color // Color of text background (opacity set to 0.2 automatically)
     
@@ -15,11 +22,11 @@ public struct UnsplashRandom: View {
     @ObservedObject var api : UnsplashAPI
     
     //MARK: Init
-    public init(clientId: String, query: String = "", orientation: String = "", textColor: Color = .white, textBackgroundColor: Color = .black){
+    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black){
         self.clientId = clientId
         self.query = query
         self.orientation = orientation
-        self.api = UnsplashAPI(clientId: clientId, query: query, orientation: orientation)
+        self.api = UnsplashAPI(clientId: clientId, query: query, orientation: orientation.rawValue)
         
         self.textColor = textColor
         self.textBackgroundColor = textBackgroundColor

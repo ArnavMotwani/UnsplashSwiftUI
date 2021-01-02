@@ -2,7 +2,7 @@
 
 This SwiftUI package makes using the Unsplash API in an app simple and easy. 
 
-Call the view and apply modifiers to it like you would with anyother view. The package will fetch the image metadata from the API and it will load the remote image, temporarily caching the image as well. The view also has a text in the botom left corner crediting the photographer as well as hotlinking to the image on Unsplash (A requirement while using the API). Finally, the view will automatically scale the image to the container.
+Call the view and apply modifiers to it like you would with anyother view. The package will fetch the image metadata from the API and it will load the remote image, temporarily caching the image as well. The view also has a text in the botom left corner crediting the photographer as well as hotlinking to the image on Unsplash (A requirement while using the API). 
 
 ## Requirements:
 The package is only compatible with iOS 14 and iPadOS 14 for now.
@@ -73,13 +73,14 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
 ```
 ## Customizations:
 
-| Parameter           | Optional? | Type         | Description                                                                            | Default     |
-|---------------------|-----------|--------------|----------------------------------------------------------------------------------------|-------------|
-| clientId            | No        | String       | Client ID from the Unsplash Developer page                                             | -           |
-| orientation         | Yes       | Orientations | Filter by photo orientation. (Valid values:   .landscape, .portrait, .squarish, .none) | -           |
-| query               | Yes       | String       | Limit selection to photos matching a search term.                                      | -           |
-| textColor           | Yes       | Color        | Color of the text hotlinked to image on Unsplash                                       | Color.white |
-| textBackgroundColor | Yes       | Color        | Color of text background (opacity set to 0.2 automatically)                            | Color.black |
+| Parameter           | Optional? | Type         | Description                                                                            | Default         |
+|---------------------|-----------|--------------|----------------------------------------------------------------------------------------|-----------------|
+| clientId            | No        | String       | Client ID from the Unsplash Developer page                                             | -               |
+| orientation         | Yes       | Orientations | Filter by photo orientation. (Valid values:   .landscape, .portrait, .squarish, .none) | -               |
+| query               | Yes       | String       | Limit selection to photos matching a search term.                                      | -               |
+| textColor           | Yes       | Color        | Color of the text hotlinked to image on Unsplash                                       | Color.white     |
+| textBackgroundColor | Yes       | Color        | Color of text background (opacity set to 0.2 automatically)                            | Color.black     |
+| aspectRatio         | Yes       | ContentMode  | Choose whether the image fits or fills the container                                   | ContentMode.fit |
 
 ### Examples: 
 
@@ -120,4 +121,12 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textBackgroundColor: .blue)
     
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textBackgroundColor: .primary)
+```
+
+### aspectRatio
+
+```swift
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", aspectRatio: .fit)
+    
+    UnsplashRandom(clientId: "YOUR_ACCESS_KEY", aspectRatio: .fill)
 ```

@@ -17,12 +17,13 @@ public struct UnsplashRandom: View {
     var orientation: Orientations // Filter by photo orientation. (Valid values:  landscape, portrait, squarish)
     var textColor: Color // Color of the text hotlinked to image on Unsplash
     var textBackgroundColor: Color // Color of text background (opacity set to 0.2 automatically)
+    var aspectRatio: ContentMode // aspect ratio's content mode (.fit or .fill)
     
     //Unsplash API data
     @ObservedObject var api : UnsplashAPI
     
     //MARK: Init
-    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black){
+    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fit){
         self.clientId = clientId
         self.query = query
         self.orientation = orientation
@@ -30,6 +31,7 @@ public struct UnsplashRandom: View {
         
         self.textColor = textColor
         self.textBackgroundColor = textBackgroundColor
+        self.aspectRatio = aspectRatio
     }
     
     //MARK: Body
@@ -60,7 +62,7 @@ public struct UnsplashRandom: View {
                         },
                         image: { Image(uiImage: $0).resizable() }
                     )
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: aspectRatio)
                     //MARK: Text(Hotlink)
                     HStack(spacing: 0){
                         Text("Photo by ")

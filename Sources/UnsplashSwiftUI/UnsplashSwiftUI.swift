@@ -52,7 +52,8 @@ public struct UnsplashRandom: View {
             switch self.api.state {
             case .loading:
                 //Placeholder
-                Text("Loading")
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
             case .loaded(let unsplashData):
                 //MARK: Main View
                 ZStack(alignment: .bottomTrailing) {
@@ -64,8 +65,8 @@ public struct UnsplashRandom: View {
                                 Spacer()
                                 HStack {
                                     Spacer()
-                                    Image(systemName: "photo")
-                                        .imageScale(.large)
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle())
                                     Spacer()
                                 }
                                 Spacer()

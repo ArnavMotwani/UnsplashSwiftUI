@@ -57,7 +57,7 @@ public struct UnsplashRandom: View {
             case .loaded(let unsplashData):
                 //MARK: Main View
                 ZStack(alignment: .bottomTrailing) {
-                    //MARK: Remote IMage
+                    //MARK: Remote Image
                     AsyncImage(
                         url: URL(string: unsplashData.urls!.raw!)!, //Remote image URL
                         placeholder: { //Placerholder while image loads
@@ -111,6 +111,7 @@ public struct UnsplashRandom: View {
         }
         .onAppear {
             self.api.request() //Request to the API
+            print("request made")
         }
     }
 }

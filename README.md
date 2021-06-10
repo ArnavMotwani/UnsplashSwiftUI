@@ -4,6 +4,8 @@ This SwiftUI package makes using the Unsplash API in an app simple and easy.
 
 Call the view and apply modifiers to it like you would with anyother view. The package will fetch the image metadata from the API and it will load the remote image, temporarily caching the image as well. The view also has a text in the botom left corner crediting the photographer as well as hotlinking to the image on Unsplash (A requirement while using the API). 
 
+### This package will be updated with the new AsyncImage View in SwiftUI released in WWDC 21
+
 ## Requirements:
 The package is only compatible with iOS 14 and iPadOS 14 for now.
 

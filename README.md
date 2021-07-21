@@ -2,12 +2,10 @@
 
 This SwiftUI package makes using the Unsplash API in an app simple and easy. 
 
-Call the view and apply modifiers to it like you would with anyother view. The package will fetch the image metadata from the API and it will load the remote image, temporarily caching the image as well. The view also has a text in the botom left corner crediting the photographer as well as hotlinking to the image on Unsplash (A requirement while using the API). 
-
-### This package will be updated with the new AsyncImage View in SwiftUI released in WWDC 21
+Call the view and apply modifiers to it like you would with any other view. The package will fetch the image metadata from the API and it will load the remote image asynchronously. The view also has a text in the bottom left corner crediting the photographer as well as hotlinking to the image on Unsplash (A requirement while using the API). 
 
 ## Requirements:
-The package is only compatible with iOS 14 and iPadOS 14 for now.
+The package is only compatible with iOS 15 and iPadOS 15 for now. Previous releases of this package support older OS versions however this release uses the new concurrency features as well as the new AsyncImage View
 
 The package requires a Access Key (Client ID) for the Unsplash API. You can get one from the [Unsplash Developers](https://unsplash.com/developers) page. You'll need to register your app there and you will be Rate Limited (limited number of API requests per hour) until you apply for a high-volume application (refer to the [Unsplash Developers](https://unsplash.com/developers) page for more details)
 
@@ -18,8 +16,6 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
 
 ## Usage:
 Import the package into the file with  `import UnsplashSwiftUI` then call the `UnsplashRandom` view wherever you want.
-
-Note: The package doesn't currently support calling the view more than once in a file. While the code will build and run correctly, the link at the bottom of the image will not match the image. 
 
 ### Examples:
 

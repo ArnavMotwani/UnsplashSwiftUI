@@ -89,7 +89,7 @@ public struct UnsplashRandom: View {
     }
 }
 
-@available(macOSApplicationExtension 12.0, *)
+@available(macOSApplicationExtension 12.0, iOSApplicationExtension 15.0, *)
 func getURL(apiURL: URL) async throws -> UnsplashData {
     let (data, _) = try await URLSession.shared.data(from: apiURL)
     return try JSONDecoder().decode(UnsplashData.self, from: data)

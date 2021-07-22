@@ -27,6 +27,7 @@ public struct UnsplashRandom: View {
     var aspectRatio: ContentMode // aspect ratio's content mode (.fit or .fill)
     
     @State private var unsplashData: UnsplashData? = nil
+    @State private var requestURL: URL? = nil
     
     //MARK: Init
     public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fit) async throws {
@@ -48,7 +49,7 @@ public struct UnsplashRandom: View {
         if query != "" {components.queryItems?.append(URLQueryItem(name: "query", value: query))}
         if orientation != .none {components.queryItems?.append(URLQueryItem(name: "orientation", value: orientation.rawValue))}
         
-        _unsplashData = State(initialValue: try await getURL(apiURL: components.url!))
+        _requestURL = State(initialValue: components.url!)
     }
     
     //MARK: Body
@@ -90,16 +91,18 @@ public struct UnsplashRandom: View {
             .background(RoundedRectangle(cornerRadius: 7.5).foregroundColor(textBackgroundColor).opacity(0.2))
             .padding(5)
         }
+        .task {
+            await getURL()
+        }
+    }
+    
+    func getURL() async{
+        do {
+            let (data, _) = try await URLSession.shared.data(from: requestURL!)
+            unsplashData =  try JSONDecoder().decode(UnsplashData.self, from: data)
+        } catch {
+            print("Failed to fetch image")
+        }
     }
 }
 
-@available(macOSApplicationExtension 12.0, iOSApplicationExtension 15.0, *)
-func getURL(apiURL: URL) async throws -> UnsplashData {
-    do {
-        let (data, _) = try await URLSession.shared.data(from: apiURL)
-        return try JSONDecoder().decode(UnsplashData.self, from: data)
-    } catch {
-        print("Failed to fetch image")
-        throw ApiErrors.failedDecode
-    }
-}

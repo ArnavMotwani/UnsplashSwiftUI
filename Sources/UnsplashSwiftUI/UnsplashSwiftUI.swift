@@ -30,7 +30,7 @@ public struct UnsplashRandom: View {
     @State private var requestURL: URL? = nil
     
     //MARK: Init
-    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fit) async throws {
+    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fit) {
         self.clientId = clientId
         self.query = query
         self.orientation = orientation
@@ -96,7 +96,7 @@ public struct UnsplashRandom: View {
         }
     }
     
-    func getURL() async{
+    func getURL() async {
         do {
             let (data, _) = try await URLSession.shared.data(from: requestURL!)
             unsplashData =  try JSONDecoder().decode(UnsplashData.self, from: data)

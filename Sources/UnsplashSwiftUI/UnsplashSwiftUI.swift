@@ -57,8 +57,15 @@ public struct UnsplashRandom: View {
         //MARK: Main View
         ZStack(alignment: .bottomTrailing) {
             //MARK: Remote Image
-            AsyncImage (url: URL(string: unsplashData?.urls!.raw! ?? "https://images.unsplash.com/photo-1626643590239-4d5051bafbcc?ixid=MnwxOTUzMTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjY5Njc0MjI&ixlib=rb-1.2.1")!)
-            .aspectRatio(contentMode: aspectRatio)
+            AsyncImage (url: URL(string: unsplashData?.urls!.raw! ?? "https://images.unsplash.com/photo-1626643590239-4d5051bafbcc?ixid=MnwxOTUzMTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjY5Njc0MjI&ixlib=rb-1.2.1")!) { image in
+                image.resizable()
+            } placeholder: {
+                ZStack {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                    Color.secondary
+                }
+            }
             //MARK: Text(Hotlink)
             HStack(spacing: 0){
                 Text("Photo by ")
@@ -101,7 +108,7 @@ public struct UnsplashRandom: View {
             let (data, _) = try await URLSession.shared.data(from: requestURL!)
             unsplashData =  try JSONDecoder().decode(UnsplashData.self, from: data)
         } catch {
-            print("Failed to fetch image")
+            print(error)
         }
     }
 }

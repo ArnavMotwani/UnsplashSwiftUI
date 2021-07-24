@@ -30,7 +30,7 @@ public struct UnsplashRandom: View {
     @State private var requestURL: URL? = nil
     
     //MARK: Init
-    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fit) {
+    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fill) {
         self.clientId = clientId
         self.query = query
         self.orientation = orientation
@@ -58,7 +58,7 @@ public struct UnsplashRandom: View {
         ZStack(alignment: .bottomTrailing) {
             //MARK: Remote Image
             AsyncImage (url: URL(string: unsplashData?.urls!.raw! ?? "https://images.unsplash.com/photo-1626643590239-4d5051bafbcc?ixid=MnwxOTUzMTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjY5Njc0MjI&ixlib=rb-1.2.1")!) { image in
-                image.resizable()
+                image.resizable().aspectRatio(contentMode: aspectRatio)
             } placeholder: {
                 ZStack {
                     ProgressView()

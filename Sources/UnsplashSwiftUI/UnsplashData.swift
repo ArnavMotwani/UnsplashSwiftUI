@@ -9,8 +9,7 @@ import Foundation
 
 // MARK: - UnsplashData
 struct UnsplashData: Codable {
-    let id: String?
-    let createdAt, updatedAt, promotedAt: Date?
+    let id, createdAt, updatedAt, promotedAt: String?
     let width, height: Int?
     let color, blurHash: String?
     let unsplashDataDescription: String?
@@ -88,9 +87,8 @@ struct Urls: Codable {
 
 // MARK: - User
 struct User: Codable {
-    let id: String?
-    let updatedAt: Date?
-    let username, name, firstName, lastName: String?
+    let id, updatedAt, username, name: String?
+    let firstName, lastName: String?
     let twitterUsername: String?
     let portfolioURL: String?
     let bio: String?

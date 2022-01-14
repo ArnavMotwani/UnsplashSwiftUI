@@ -36,66 +36,67 @@ public struct UnsplashRandom: View {
     //MARK: Body
     public var body: some View {
         //MARK: Main View
-        switch api.state {
-        case .loaded(let unsplashData):
-            ZStack(alignment: .bottomTrailing) {
-                //MARK: Remote Image
-                AsyncImage (url: URL(string: unsplashData.urls?.raw ?? "https://images.unsplash.com/photo-1626643590239-4d5051bafbcc?ixid=MnwxOTUzMTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjY5Njc0MjI&ixlib=rb-1.2.1")!) { image in
-                    image.resizable().aspectRatio(contentMode: aspectRatio)
-                } placeholder: {
-                    ZStack {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                        Color.secondary
+        VStack {
+            switch api.state {
+            case .loaded(let unsplashData):
+                ZStack(alignment: .bottomTrailing) {
+                    //MARK: Remote Image
+                    AsyncImage (url: URL(string: unsplashData.urls?.raw ?? "https://images.unsplash.com/photo-1626643590239-4d5051bafbcc?ixid=MnwxOTUzMTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjY5Njc0MjI&ixlib=rb-1.2.1")!) { image in
+                        image.resizable().aspectRatio(contentMode: aspectRatio)
+                    } placeholder: {
+                        ZStack {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                            Color.secondary
+                        }
                     }
+                    
+                    //MARK: Text(Hotlink)
+                    HStack(spacing: 0){
+                        Text("Photo by ")
+                            .font(.subheadline)
+                            .foregroundColor(textColor)
+                        
+                        //Link to original image on Unsplash
+                        Link(destination: URL(string: unsplashData.links?.html ?? "https://unsplash.com")!, label: {
+                            Text(unsplashData.user?.name ?? "")
+                                .font(.subheadline)
+                                .underline()
+                                .bold()
+                                .foregroundColor(textColor)
+                        })
+                        
+                        Text(" on ")
+                            .font(.subheadline)
+                            .foregroundColor(textColor)
+                        
+                        //Link to Unsplash
+                        Link(destination: URL(string: "https://unsplash.com")!, label: {
+                            Text("Unsplash")
+                                .font(.subheadline)
+                                .underline()
+                                .bold()
+                                .foregroundColor(textColor)
+                        })
+                    }
+                    .padding(5)
+                    .background(RoundedRectangle(cornerRadius: 7.5).foregroundColor(textBackgroundColor).opacity(0.2))
+                    .padding(5)
                 }
                 
-                //MARK: Text(Hotlink)
-                HStack(spacing: 0){
-                    Text("Photo by ")
-                        .font(.subheadline)
-                        .foregroundColor(textColor)
-                    
-                    //Link to original image on Unsplash
-                    Link(destination: URL(string: unsplashData.links?.html ?? "https://unsplash.com")!, label: {
-                        Text(unsplashData.user?.name ?? "")
-                            .font(.subheadline)
-                            .underline()
-                            .bold()
-                            .foregroundColor(textColor)
-                    })
-                    
-                    Text(" on ")
-                        .font(.subheadline)
-                        .foregroundColor(textColor)
-                    
-                    //Link to Unsplash
-                    Link(destination: URL(string: "https://unsplash.com")!, label: {
-                        Text("Unsplash")
-                            .font(.subheadline)
-                            .underline()
-                            .bold()
-                            .foregroundColor(textColor)
-                    })
-                }
-                .padding(5)
-                .background(RoundedRectangle(cornerRadius: 7.5).foregroundColor(textBackgroundColor).opacity(0.2))
-                .padding(5)
+            case .loading:
+                ProgressView()
+                
+            case .idle:
+                EmptyView()
+                
+            case .failed(let error):
+                Text(error.localizedDescription)
             }
-            
-        case .loading:
-            ProgressView()
-            
-        case .idle:
-            EmptyView()
-                .onAppear {
-                    Task {
-                        await api.fetchImage(clientId: clientId, query: query, orientation: orientation)
-                    }
-                }
-            
-        case .failed(let error):
-            Text(error.localizedDescription)
+        }
+        .task {
+            print("Fetching...")
+            await api.fetchImage(clientId: clientId, query: query, orientation: orientation)
         }
     }
 }

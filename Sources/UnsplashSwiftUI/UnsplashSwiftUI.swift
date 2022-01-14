@@ -45,6 +45,7 @@ public struct UnsplashRandom: View {
                         image.resizable().aspectRatio(contentMode: aspectRatio)
                     } placeholder: {
                         ProgressView()
+                            .offset(x: 0, y: -20)
                     }
                     
                     //MARK: Text(Hotlink)

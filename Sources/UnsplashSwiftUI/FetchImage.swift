@@ -19,14 +19,13 @@ class UnsplashApi: ObservableObject {
     @Published var state: LoadingState = .idle
     
     func fetchImage(clientId: String, query: String, orientation: String) async {
-        print(clientId)
-        print(query)
-        print(orientation)
-        var components = URLComponents(string: "https://api.unsplash.com/")
-        components?.queryItems = [URLQueryItem(name: "client_id", value: clientId)]
-        if query != "" {components?.queryItems?.append(URLQueryItem(name: "query", value: query))}
-        if orientation != "" {components?.queryItems?.append(URLQueryItem(name: "orientation", value: orientation))}
-        guard let url = components?.url else { state = .failed(URLError(.badURL)); return }
+        let baseUrl = URL(string: "https://api.unsplash.com/")
+        guard var components = URLComponents(url: baseUrl!.appendingPathComponent("photos/random"), resolvingAgainstBaseURL: true)
+        else { state = .failed(URLError(.badURL)); return }
+        components.queryItems = [URLQueryItem(name: "client_id", value: clientId)]
+        if query != "" {components.queryItems?.append(URLQueryItem(name: "query", value: query))}
+        if orientation != "" {components.queryItems?.append(URLQueryItem(name: "orientation", value: orientation))}
+        guard let url = components.url else { state = .failed(URLError(.badURL)); return }
         self.state = .loading
         print(url)
         do {

@@ -9,7 +9,7 @@ The package is only compatible with iOS 15 and iPadOS 15 for now. Previous relea
 
 The package requires a Access Key (Client ID) for the Unsplash API. You can get one from the [Unsplash Developers](https://unsplash.com/developers) page. You'll need to register your app there and you will be Rate Limited (limited number of API requests per hour) until you apply for a high-volume application (refer to the [Unsplash Developers](https://unsplash.com/developers) page for more details)
 
-Disclamer: I have not attempted applying for a high-volume application using this library as of yet. I believe that I have met all the requirements of the API and you should have no problem with it however I am not completely sure.
+**Disclamer: I have not attempted applying for a high-volume application using this library as of yet. I believe that I have met all the requirements of the API and you should have no problem with it however I am not completely sure.**
 
 ### Installation: 
 In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in the repo's url: `https://github.com/ArnavMotwani/UnsplashSwiftUI.git` then either select a version or the main branch (I will update the main branch more frequently with minor changes, while the version number will only increase with significant changes)

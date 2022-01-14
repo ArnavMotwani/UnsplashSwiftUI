@@ -41,7 +41,7 @@ public struct UnsplashRandom: View {
             case .loaded(let unsplashData):
                 ZStack(alignment: .bottomTrailing) {
                     //MARK: Remote Image
-                    AsyncImage (url: URL(string: unsplashData.urls?.raw ?? "https://images.unsplash.com/photo-1626643590239-4d5051bafbcc?ixid=MnwxOTUzMTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjY5Njc0MjI&ixlib=rb-1.2.1")!) { image in
+                    AsyncImage (url: URL(string: unsplashData.urls.raw )!) { image in
                         image.resizable().aspectRatio(contentMode: aspectRatio)
                     } placeholder: {
                         ZStack {
@@ -58,8 +58,8 @@ public struct UnsplashRandom: View {
                             .foregroundColor(textColor)
                         
                         //Link to original image on Unsplash
-                        Link(destination: URL(string: unsplashData.links?.html ?? "https://unsplash.com")!, label: {
-                            Text(unsplashData.user?.name ?? "")
+                        Link(destination: URL(string: unsplashData.links.html )!, label: {
+                            Text(unsplashData.user.name )
                                 .font(.subheadline)
                                 .underline()
                                 .bold()

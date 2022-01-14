@@ -44,8 +44,12 @@ public struct UnsplashRandom: View {
                     AsyncImage (url: URL(string: unsplashData.urls.raw )!) { image in
                         image.resizable().aspectRatio(contentMode: aspectRatio)
                     } placeholder: {
-                        ProgressView()
-                            .offset(x: 0, y: -20)
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                                .offset(y: -50)
+                            Spacer()
+                        }
                     }
                     
                     //MARK: Text(Hotlink)

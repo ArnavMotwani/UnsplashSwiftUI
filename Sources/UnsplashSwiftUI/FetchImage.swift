@@ -27,10 +27,8 @@ class UnsplashApi: ObservableObject {
         if orientation != "" {components.queryItems?.append(URLQueryItem(name: "orientation", value: orientation))}
         guard let url = components.url else { state = .failed(URLError(.badURL)); return }
         self.state = .loading
-        print(url)
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            print(data)
             let response = try JSONDecoder().decode(UnsplashData.self, from: data)
             self.state = .loaded(response)
         } catch {

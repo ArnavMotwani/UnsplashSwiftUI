@@ -44,11 +44,7 @@ public struct UnsplashRandom: View {
                     AsyncImage (url: URL(string: unsplashData.urls.raw )!) { image in
                         image.resizable().aspectRatio(contentMode: aspectRatio)
                     } placeholder: {
-                        ZStack {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle())
-                            Color.secondary
-                        }
+                        ProgressView()
                     }
                     
                     //MARK: Text(Hotlink)
@@ -95,7 +91,6 @@ public struct UnsplashRandom: View {
             }
         }
         .task {
-            print("Fetching...")
             await api.fetchImage(clientId: clientId, query: query, orientation: orientation)
         }
     }

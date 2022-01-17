@@ -23,7 +23,7 @@ public struct UnsplashRandom: View {
     @StateObject var api = UnsplashApi()
     
     //MARK: Init
-    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fill) {
+    public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fit) {
         self.clientId = clientId
         self.query = query
         self.orientation = orientation.rawValue

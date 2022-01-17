@@ -12,7 +12,7 @@ The package requires a Access Key (Client ID) for the Unsplash API. You can get 
 **Disclamer: I have not attempted applying for a high-volume application using this library as of yet. I believe that I have met all the requirements of the API and you should have no problem with it however I am not completely sure.**
 
 ### Installation: 
-In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in the repo's url: `https://github.com/ArnavMotwani/UnsplashSwiftUI.git` then either select a version or the main branch (I will update the main branch more frequently with minor changes, while the version number will only increase with significant changes)
+In Xcode go to `File -> Add Packages` and paste in the repo's url: `https://github.com/ArnavMotwani/UnsplashSwiftUI.git` then either select a version or the main branch (I will update the main branch more frequently with minor changes, while the version number will only increase with significant changes)
 
 ## Usage:
 Import the package into the file with  `import UnsplashSwiftUI` then call the `UnsplashRandom` view wherever you want.
@@ -73,14 +73,14 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
 ```
 ## Customizations:
 
-| Parameter           | Optional? | Type         | Description                                                                            | Default         |
-|---------------------|-----------|--------------|----------------------------------------------------------------------------------------|-----------------|
-| clientId            | No        | String       | Client ID from the Unsplash Developer page                                             | -               |
-| orientation         | Yes       | Orientations | Filter by photo orientation. (Valid values:   .landscape, .portrait, .squarish, .none) | -               |
-| query               | Yes       | String       | Limit selection to photos matching a search term.                                      | -               |
-| textColor           | Yes       | Color        | Color of the text hotlinked to image on Unsplash                                       | Color.white     |
-| textBackgroundColor | Yes       | Color        | Color of text background (opacity set to 0.2 automatically)                            | Color.black     |
-| aspectRatio         | Yes       | ContentMode  | Choose whether the image fits or fills the container                                   | ContentMode.fit |
+| Parameter           | Optional? | Type         | Description                                                                          | Default         |
+|---------------------|-----------|--------------|--------------------------------------------------------------------------------------|-----------------|
+| clientId            | No        | String       | Client ID from the Unsplash Developer page                                           | -               |
+| orientation         | Yes       | Orientations | Filter by photo orientation. (Valid values: .landscape, .portrait, .squarish, .none) | -               |
+| query               | Yes       | String       | Limit selection to photos matching a search term.                                    | -               |
+| textColor           | Yes       | Color        | Color of the text hotlinked to image on Unsplash                                     | Color.white     |
+| textBackgroundColor | Yes       | Color        | Color of text background (opacity set to 0.2 automatically)                          | Color.black     |
+| aspectRatio         | Yes       | ContentMode  | Choose whether the image fits or fills the container                                 | ContentMode.fit |
 
 ### Examples: 
 
@@ -103,7 +103,7 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", query: "space")
 ```
 
-### textColor
+#### textColor
 
 ```swift
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textColor: .black)
@@ -113,7 +113,7 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textColor: .primary)
 ```
 
-### textBackgroundColor
+#### textBackgroundColor
 
 ```swift
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textBackgroundColor: .white)
@@ -123,7 +123,7 @@ struct UnsplashRandomTest_Previews: PreviewProvider {
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", textBackgroundColor: .primary)
 ```
 
-### aspectRatio
+#### aspectRatio
 
 ```swift
     UnsplashRandom(clientId: "YOUR_ACCESS_KEY", aspectRatio: .fit)

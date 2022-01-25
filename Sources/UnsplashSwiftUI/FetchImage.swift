@@ -28,7 +28,7 @@ class UnsplashApi: ObservableObject {
         guard let url = components.url else { state = .failed(URLError(.badURL)); return }
         self.state = .loading
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+            let (data, _) = try await URLSession(configuration: .ephemeral).data(from: url)
             let response = try JSONDecoder().decode(UnsplashData.self, from: data)
             self.state = .loaded(response)
         } catch {

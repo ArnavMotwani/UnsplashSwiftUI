@@ -20,7 +20,7 @@ public struct UnsplashRandom: View {
     var textBackgroundColor: Color // Color of text background (opacity set to 0.2 automatically)
     var aspectRatio: ContentMode // aspect ratio's content mode (.fit or .fill)
     
-    @StateObject var api = UnsplashApi()
+    @ObservedObject var api = UnsplashApi()
     
     //MARK: Init
     public init(clientId: String, query: String = "", orientation: Orientations = .none, textColor: Color = .white, textBackgroundColor: Color = .black, aspectRatio: ContentMode = .fit) {

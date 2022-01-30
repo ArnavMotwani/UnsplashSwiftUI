@@ -39,57 +39,58 @@ public struct UnsplashRandom: View {
         VStack {
             switch api.state {
             case .loaded(let unsplashData): // Fetched image data
-            AsyncImage(url: URL(string: unsplashData.urls.raw )!) { phase in
-                switch(phase) {
-                case .success(let image): // Loaded image
-                    ZStack(alignment: .bottomTrailing) {
-                        
-                        //MARK: Remote Image
-                        image.resizable().aspectRatio(contentMode: aspectRatio)
-                        
-                        //MARK: Text(Hotlink)
-                        HStack(spacing: 0){
-                            Text("Photo by ")
-                                .font(.subheadline)
-                                .foregroundColor(textColor)
+                AsyncImage(url: URL(string: unsplashData.urls.raw )!) { phase in
+                    
+                    switch(phase) {
+                    case .success(let image): // Loaded image
+                        ZStack(alignment: .bottomTrailing) {
                             
-                            //Link to original image on Unsplash
-                            Link(destination: URL(string: unsplashData.links.html )!, label: {
-                                Text(unsplashData.user.name )
+                            //MARK: Remote Image
+                            image.resizable().aspectRatio(contentMode: aspectRatio)
+                            
+                            //MARK: Text(Hotlink)
+                            HStack(spacing: 0){
+                                Text("Photo by ")
                                     .font(.subheadline)
-                                    .underline()
-                                    .bold()
                                     .foregroundColor(textColor)
-                            })
-                            
-                            Text(" on ")
-                                .font(.subheadline)
-                                .foregroundColor(textColor)
-                            
-                            //Link to Unsplash
-                            Link(destination: URL(string: "https://unsplash.com")!, label: {
-                                Text("Unsplash")
+                                
+                                //Link to original image on Unsplash
+                                Link(destination: URL(string: unsplashData.links.html )!, label: {
+                                    Text(unsplashData.user.name )
+                                        .font(.subheadline)
+                                        .underline()
+                                        .bold()
+                                        .foregroundColor(textColor)
+                                })
+                                
+                                Text(" on ")
                                     .font(.subheadline)
-                                    .underline()
-                                    .bold()
                                     .foregroundColor(textColor)
-                            })
+                                
+                                //Link to Unsplash
+                                Link(destination: URL(string: "https://unsplash.com")!, label: {
+                                    Text("Unsplash")
+                                        .font(.subheadline)
+                                        .underline()
+                                        .bold()
+                                        .foregroundColor(textColor)
+                                })
+                            }
+                            .padding(5)
+                            .background(RoundedRectangle(cornerRadius: 7.5).foregroundColor(textBackgroundColor).opacity(0.2))
+                            .padding(5)
                         }
-                        .padding(5)
-                        .background(RoundedRectangle(cornerRadius: 7.5).foregroundColor(textBackgroundColor).opacity(0.2))
-                        .padding(5)
+                        
+                    case .failure(let error): // Failed to load image
+                        Text(error.localizedDescription)
+                        
+                    case .empty:
+                        ProgressView()
+                        
+                    @unknown default:
+                        EmptyView()
                     }
-                    
-                case .failure(let error): // Failed to load image
-                    Text(error.localizedDescription)
-                    
-                case .empty:
-                    EmptyView()
-                    
-                @unknown default:
-                    EmptyView()
                 }
-            }
                 
             case .loading: // Fetching image data
                 ProgressView()

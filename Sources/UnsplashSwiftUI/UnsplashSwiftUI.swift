@@ -38,60 +38,66 @@ public struct UnsplashRandom: View {
         //MARK: Main View
         VStack {
             switch api.state {
-            case .loaded(let unsplashData):
-                ZStack(alignment: .bottomTrailing) {
-                    //MARK: Remote Image
-                    AsyncImage (url: URL(string: unsplashData.urls.raw )!) { image in
+            case .loaded(let unsplashData): // Fetched image data
+            AsyncImage(url: URL(string: unsplashData.urls.raw )!) { phase in
+                switch(phase) {
+                case .success(let image): // Loaded image
+                    ZStack(alignment: .bottomTrailing) {
+                        
+                        //MARK: Remote Image
                         image.resizable().aspectRatio(contentMode: aspectRatio)
-                    } placeholder: {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                                .offset(y: -50)
-                            Spacer()
+                        
+                        //MARK: Text(Hotlink)
+                        HStack(spacing: 0){
+                            Text("Photo by ")
+                                .font(.subheadline)
+                                .foregroundColor(textColor)
+                            
+                            //Link to original image on Unsplash
+                            Link(destination: URL(string: unsplashData.links.html )!, label: {
+                                Text(unsplashData.user.name )
+                                    .font(.subheadline)
+                                    .underline()
+                                    .bold()
+                                    .foregroundColor(textColor)
+                            })
+                            
+                            Text(" on ")
+                                .font(.subheadline)
+                                .foregroundColor(textColor)
+                            
+                            //Link to Unsplash
+                            Link(destination: URL(string: "https://unsplash.com")!, label: {
+                                Text("Unsplash")
+                                    .font(.subheadline)
+                                    .underline()
+                                    .bold()
+                                    .foregroundColor(textColor)
+                            })
                         }
+                        .padding(5)
+                        .background(RoundedRectangle(cornerRadius: 7.5).foregroundColor(textBackgroundColor).opacity(0.2))
+                        .padding(5)
                     }
                     
-                    //MARK: Text(Hotlink)
-                    HStack(spacing: 0){
-                        Text("Photo by ")
-                            .font(.subheadline)
-                            .foregroundColor(textColor)
-                        
-                        //Link to original image on Unsplash
-                        Link(destination: URL(string: unsplashData.links.html )!, label: {
-                            Text(unsplashData.user.name )
-                                .font(.subheadline)
-                                .underline()
-                                .bold()
-                                .foregroundColor(textColor)
-                        })
-                        
-                        Text(" on ")
-                            .font(.subheadline)
-                            .foregroundColor(textColor)
-                        
-                        //Link to Unsplash
-                        Link(destination: URL(string: "https://unsplash.com")!, label: {
-                            Text("Unsplash")
-                                .font(.subheadline)
-                                .underline()
-                                .bold()
-                                .foregroundColor(textColor)
-                        })
-                    }
-                    .padding(5)
-                    .background(RoundedRectangle(cornerRadius: 7.5).foregroundColor(textBackgroundColor).opacity(0.2))
-                    .padding(5)
+                case .failure(let error): // Failed to load image
+                    Text(error.localizedDescription)
+                    
+                case .empty:
+                    EmptyView()
+                    
+                @unknown default:
+                    EmptyView()
                 }
+            }
                 
-            case .loading:
+            case .loading: // Fetching image data
                 ProgressView()
                 
             case .idle:
                 EmptyView()
                 
-            case .failed(let error):
+            case .failed(let error): // Failed to fetch image data
                 Text(error.localizedDescription)
             }
         }
